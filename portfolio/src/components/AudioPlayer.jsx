@@ -7,6 +7,7 @@ import introVoice from '../assets/intro_voice.mp3';
 const AudioPlayer = () => {
     const audioRef = useRef(null);
     const introRef = useRef(null);
+    const introTimeoutRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
     const [hasInteracted, setHasInteracted] = useState(false);
@@ -17,6 +18,9 @@ const AudioPlayer = () => {
             audioRef.current.volume = 0.4;
             audioRef.current.loop = true;
         }
+        return () => {
+            if (introTimeoutRef.current) clearTimeout(introTimeoutRef.current);
+        };
     }, []);
 
     const handleIntroEnd = () => {
@@ -44,26 +48,33 @@ const AudioPlayer = () => {
 
             if (audioRef.current) {
                 audioRef.current.muted = false;
+                audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
 
-                // If intro hasn't played this session, duck the music and play intro
+                // If intro hasn't played this session, set a 10s delay then duck music and play intro
                 if (!introAlreadyPlayed && introRef.current && introRef.current.src) {
-                    setIsPlayingIntro(true);
-                    audioRef.current.volume = 0.1; // Duck background
-                    audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
+                    introTimeoutRef.current = setTimeout(() => {
+                        setIsPlayingIntro(true);
+                        if (audioRef.current) audioRef.current.volume = 0.1; // Duck background
 
-                    introRef.current.play().catch(err => {
-                        console.log("Intro playback failed, restoring volume:", err);
-                        handleIntroEnd();
-                    });
+                        introRef.current.play().catch(err => {
+                            console.log("Intro playback failed, restoring volume:", err);
+                            handleIntroEnd();
+                        });
 
-                    localStorage.setItem('MISSION_INTRO_PLAYED', 'true');
-                } else {
-                    audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
+                        localStorage.setItem('MISSION_INTRO_PLAYED', 'true');
+                    }, 10000); // 10 second delay
                 }
             }
         } else {
             const newMuteState = !isMuted;
             setIsMuted(newMuteState);
+
+            // If user mutes, clear any pending intro timeout
+            if (newMuteState && introTimeoutRef.current) {
+                clearTimeout(introTimeoutRef.current);
+                introTimeoutRef.current = null;
+            }
+
             if (audioRef.current) {
                 audioRef.current.muted = newMuteState;
                 if (!newMuteState && audioRef.current.paused) {
