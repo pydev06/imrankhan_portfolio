@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import missionAudio from '../assets/Daft Punk - End Of Line (TikTok Slowed Version).mp3';
 // Import your cinematic voice intro here (e.g., introVoice from '../assets/intro_voice.mp3')
-// import introVoice from '../assets/intro_voice.mp3';
+import introVoice from '../assets/intro_voice.mp3';
 
 const AudioPlayer = () => {
     const audioRef = useRef(null);
@@ -83,7 +83,7 @@ const AudioPlayer = () => {
             {/* User can drop intro_voice.mp3 in assets and link it here */}
             <audio
                 ref={introRef}
-                src="" // Add path to intro voice over here
+                src={introVoice} // Add path to intro voice over here
                 onEnded={handleIntroEnd}
             />
 
