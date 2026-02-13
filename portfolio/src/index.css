@@ -1,0 +1,431 @@
+@import "tailwindcss";
+
+@theme {
+  /* Glitch Nebula Palette */
+  --color-bg-primary: #030712;
+  /* Deep Midnight Navy */
+  --color-bg-metal: #0f172a;
+  /* Cold Plate Steel */
+  --color-bg-panel: #1e293b;
+  /* HUD Housing */
+  --color-accent-energon: #ff0080;
+  /* Cybertronian Magenta Refinement */
+  --color-accent-hazard: #CCFF00;
+  /* Neon Lime */
+  --color-accent-core: #00d4ff;
+  /* High-Octane Cyan */
+  --color-text-primary: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-text-dim: #475569;
+
+  --font-heading: 'Orbitron', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+
+  --border-radius-industrial: 2px;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+}
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #050505;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background-color: #050505;
+  color: #e5e5e5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Industrial Grid Background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scanline Effect */
+.scanline::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+/* Angular Panel (Industrial Clip-path) */
+.panel-cut {
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+.panel-cut-reverse {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+/* Hazard Stripes */
+.hazard-stripes {
+  background: repeating-linear-gradient(45deg,
+      #fbbf24,
+      #fbbf24 10px,
+      #050505 10px,
+      #050505 20px);
+}
+
+/* Mechanical Text */
+.text-energon {
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.text-hazard {
+  color: #fbbf24;
+}
+
+/* HUD Brackets */
+.hud-bracket-top-left::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 15px;
+  height: 15px;
+  border-top: 2px solid #00d4ff;
+  border-left: 2px solid #00d4ff;
+}
+
+.hud-bracket-bottom-right::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 15px;
+  height: 15px;
+  border-bottom: 2px solid #00d4ff;
+  border-right: 2px solid #00d4ff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fbbf24;
+}
+
+/* Animations */
+@keyframes scanning {
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
+
+.scan-bar {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 15px #00d4ff;
+  animation: scanning 4s linear infinite;
+  z-index: 20;
+}
+
+/* GLOBAL CRT & SYSTEM OVERLAYS */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg,
+      rgba(255, 0, 0, 0.02),
+      rgba(0, 255, 0, 0.01),
+      rgba(0, 0, 255, 0.02));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.15;
+}
+
+.system-pulse {
+  animation: pulse-energy 4s infinite ease-in-out;
+}
+
+@keyframes pulse-energy {
+
+  0%,
+  100% {
+    opacity: 0.05;
+  }
+
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* GLITCH NEBULA UTILITIES */
+.glow-text {
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+}
+
+.glow-text-hazard {
+  text-shadow: 0 0 8px rgba(204, 255, 0, 0.4);
+}
+
+.glow-text-dim {
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.2);
+}
+
+.chromatic-text {
+  position: relative;
+  transition: all 0.3s;
+}
+
+.chromatic-text:hover {
+  text-shadow:
+    2px 0 0 rgba(255, 0, 255, 0.6),
+    -2px 0 0 rgba(204, 255, 0, 0.6);
+}
+
+/* Glassmorphism primitives */
+.glass-panel {
+  @apply bg-bg-panel/20 backdrop-blur-md border border-white/5;
+  box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.02);
+}
+
+@keyframes mech-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-mech-rotate {
+  animation: mech-rotate 10s linear infinite;
+}
+
+/* IMAGE GLITCH & RGB SPLIT */
+@keyframes image-glitch {
+  0% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+
+  2% {
+    transform: translate(-5px, 2px);
+    clip-path: inset(10% 0 80% 0);
+  }
+
+  4% {
+    transform: translate(5px, -2px);
+    clip-path: inset(50% 0 30% 0);
+  }
+
+  6% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes rgb-split-red {
+  0% {
+    transform: translate(0);
+    opacity: 0;
+  }
+
+  2% {
+    transform: translate(4px, 1px);
+    opacity: 0.5;
+  }
+
+  4% {
+    transform: translate(-2px, -1px);
+    opacity: 0.5;
+  }
+
+  6% {
+    transform: translate(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+}
+
+@keyframes rgb-split-blue {
+  0% {
+    transform: translate(0);
+    opacity: 0;
+  }
+
+  2% {
+    transform: translate(-4px, -1px);
+    opacity: 0.5;
+  }
+
+  4% {
+    transform: translate(2px, 1px);
+    opacity: 0.5;
+  }
+
+  6% {
+    transform: translate(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(0);
+    opacity: 0;
+  }
+}
+
+.animate-image-glitch {
+  animation: image-glitch 8s infinite linear;
+}
+
+.animate-rgb-red {
+  animation: rgb-split-red 8s infinite linear;
+  filter: sepia(100%) saturate(300%) hue-rotate(-50deg);
+}
+
+.animate-rgb-blue {
+  animation: rgb-split-blue 8s infinite linear;
+  filter: sepia(100%) saturate(300%) hue-rotate(180deg);
+}
+
+/* TACTICAL LINK ANIMATIONS */
+@keyframes scan-sweep {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  80% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.animate-scan-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-scan-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(204, 255, 0, 0.4), transparent);
+  animation: scan-sweep 3s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes interaction-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 0, 128, 0.2), inset 0 0 5px rgba(255, 0, 128, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.5), inset 0 0 10px rgba(255, 0, 128, 0.2);
+  }
+}
+
+.animate-interaction-pulse {
+  animation: interaction-pulse 2s infinite ease-in-out;
+}
