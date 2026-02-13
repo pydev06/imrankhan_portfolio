@@ -12,6 +12,7 @@ const AudioPlayer = () => {
     const [isMuted, setIsMuted] = useState(true);
     const [hasInteracted, setHasInteracted] = useState(false);
     const [isPlayingIntro, setIsPlayingIntro] = useState(false);
+    const [introCompleted, setIntroCompleted] = useState(false);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -25,6 +26,8 @@ const AudioPlayer = () => {
 
     const handleIntroEnd = () => {
         setIsPlayingIntro(false);
+        setIntroCompleted(true);
+        localStorage.setItem('MISSION_INTRO_PLAYED', 'true');
         if (audioRef.current) {
             // Restore volume smoothly
             const fadeUp = setInterval(() => {
@@ -38,51 +41,60 @@ const AudioPlayer = () => {
         }
     };
 
+    const triggerIntroSequence = () => {
+        const introAlreadyPlayed = localStorage.getItem('MISSION_INTRO_PLAYED');
+        if (introAlreadyPlayed || introCompleted || isPlayingIntro || introTimeoutRef.current) return;
+
+        console.log("[SYSTEM] Initializing 10s intro sequence countdown...");
+        introTimeoutRef.current = setTimeout(() => {
+            // Use refs to check current state, avoiding stale closure issues
+            if (audioRef.current && audioRef.current.muted) {
+                console.log("[SYSTEM] Intro aborted: System is muted.");
+                introTimeoutRef.current = null;
+                return;
+            }
+
+            if (introRef.current && introRef.current.src) {
+                setIsPlayingIntro(true);
+                if (audioRef.current) audioRef.current.volume = 0.1; // Duck background
+
+                introRef.current.volume = 1.0;
+                introRef.current.play().catch(err => {
+                    console.log("Intro playback failed, restoring volume:", err);
+                    handleIntroEnd();
+                });
+            }
+            introTimeoutRef.current = null;
+        }, 10000);
+    };
+
     const toggleAudio = () => {
+        const newMuteState = !isMuted;
+        setIsMuted(newMuteState);
+
         if (!hasInteracted) {
             setHasInteracted(true);
             setIsPlaying(true);
-            setIsMuted(false);
+        }
 
-            const introAlreadyPlayed = localStorage.getItem('MISSION_INTRO_PLAYED');
-
-            if (audioRef.current) {
-                audioRef.current.muted = false;
-                audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
-
-                // If intro hasn't played this session, set a 10s delay then duck music and play intro
-                if (!introAlreadyPlayed && introRef.current && introRef.current.src) {
-                    introTimeoutRef.current = setTimeout(() => {
-                        setIsPlayingIntro(true);
-                        if (audioRef.current) audioRef.current.volume = 0.1; // Duck background
-
-                        introRef.current.play().catch(err => {
-                            console.log("Intro playback failed, restoring volume:", err);
-                            handleIntroEnd();
-                        });
-
-                        localStorage.setItem('MISSION_INTRO_PLAYED', 'true');
-                    }, 10000); // 10 second delay
+        if (audioRef.current) {
+            audioRef.current.muted = newMuteState;
+            if (!newMuteState) {
+                audioRef.current.play().catch(err => console.log("Audio play blocked:", err));
+                // Try to trigger intro if not played
+                triggerIntroSequence();
+            } else {
+                // If user mutes, we pause/clear intro intent for this attempt
+                if (introTimeoutRef.current) {
+                    clearTimeout(introTimeoutRef.current);
+                    introTimeoutRef.current = null;
                 }
-            }
-        } else {
-            const newMuteState = !isMuted;
-            setIsMuted(newMuteState);
-
-            // If user mutes, clear any pending intro timeout
-            if (newMuteState && introTimeoutRef.current) {
-                clearTimeout(introTimeoutRef.current);
-                introTimeoutRef.current = null;
-            }
-
-            if (audioRef.current) {
-                audioRef.current.muted = newMuteState;
-                if (!newMuteState && audioRef.current.paused) {
-                    audioRef.current.play();
+                if (introRef.current) {
+                    introRef.current.pause();
+                    setIsPlayingIntro(false);
+                    // Reset ducking if it was active
+                    if (audioRef.current) audioRef.current.volume = 0.4;
                 }
-            }
-            if (introRef.current) {
-                introRef.current.muted = newMuteState;
             }
         }
     };
