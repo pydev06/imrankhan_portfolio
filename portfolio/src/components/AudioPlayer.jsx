@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import missionAudio from '../assets/Daft Punk - End Of Line (TikTok Slowed Version).mp3';
+// Import your cinematic voice intro here (e.g., introVoice from '../assets/intro_voice.mp3')
+// import introVoice from '../assets/intro_voice.mp3';
 
 const AudioPlayer = () => {
     const audioRef = useRef(null);
+    const introRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
     const [hasInteracted, setHasInteracted] = useState(false);
+    const [isPlayingIntro, setIsPlayingIntro] = useState(false);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -15,14 +19,47 @@ const AudioPlayer = () => {
         }
     }, []);
 
+    const handleIntroEnd = () => {
+        setIsPlayingIntro(false);
+        if (audioRef.current) {
+            // Restore volume smoothly
+            const fadeUp = setInterval(() => {
+                if (audioRef.current.volume < 0.38) {
+                    audioRef.current.volume += 0.02;
+                } else {
+                    audioRef.current.volume = 0.4;
+                    clearInterval(fadeUp);
+                }
+            }, 50);
+        }
+    };
+
     const toggleAudio = () => {
         if (!hasInteracted) {
             setHasInteracted(true);
             setIsPlaying(true);
             setIsMuted(false);
+
+            const introAlreadyPlayed = localStorage.getItem('MISSION_INTRO_PLAYED');
+
             if (audioRef.current) {
                 audioRef.current.muted = false;
-                audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
+
+                // If intro hasn't played this session, duck the music and play intro
+                if (!introAlreadyPlayed && introRef.current && introRef.current.src) {
+                    setIsPlayingIntro(true);
+                    audioRef.current.volume = 0.1; // Duck background
+                    audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
+
+                    introRef.current.play().catch(err => {
+                        console.log("Intro playback failed, restoring volume:", err);
+                        handleIntroEnd();
+                    });
+
+                    localStorage.setItem('MISSION_INTRO_PLAYED', 'true');
+                } else {
+                    audioRef.current.play().catch(err => console.log("Audio play blocked by browser:", err));
+                }
             }
         } else {
             const newMuteState = !isMuted;
@@ -33,13 +70,22 @@ const AudioPlayer = () => {
                     audioRef.current.play();
                 }
             }
+            if (introRef.current) {
+                introRef.current.muted = newMuteState;
+            }
         }
     };
 
     return (
         <div className="fixed bottom-8 right-8 z-[100] flex items-center gap-4">
-            {/* HTML5 Audio Element (Hidden) */}
+            {/* HTML5 Audio Elements (Hidden) */}
             <audio ref={audioRef} src={missionAudio} />
+            {/* User can drop intro_voice.mp3 in assets and link it here */}
+            <audio
+                ref={introRef}
+                src="" // Add path to intro voice over here
+                onEnded={handleIntroEnd}
+            />
 
             <AnimatePresence>
                 {!isMuted && (
@@ -50,24 +96,24 @@ const AudioPlayer = () => {
                         className="bg-bg-primary/80 backdrop-blur-md border border-accent-energon/30 px-4 py-2 flex flex-col items-end gap-1 shadow-[0_0_20px_rgba(255,0,255,0.1)]"
                     >
                         <span className="text-[10px] font-mono text-accent-energon uppercase tracking-tighter opacity-70">
-                            Signal Tracking: ACTIVE
+                            {isPlayingIntro ? 'Signal Type: ENCRYPTED_VOICE' : 'Signal Tracking: ACTIVE'}
                         </span>
                         <div className="flex items-center gap-3">
                             <span className="text-[9px] font-mono text-white/50 animate-pulse">
-                                [MISSION_AUDIO_READY] &gt;&gt;
+                                {isPlayingIntro ? '[SYSTEM_GREETING_IN_PROGRESS]' : '[MISSION_AUDIO_READY] >>'}
                             </span>
                             <div className="flex gap-[2px] h-3 items-end">
-                                {[...Array(4)].map((_, i) => (
+                                {[...Array(isPlayingIntro ? 8 : 4)].map((_, i) => (
                                     <motion.div
                                         key={i}
                                         animate={{ height: [4, 12, 6, 12, 4] }}
                                         transition={{
-                                            duration: 0.8,
+                                            duration: isPlayingIntro ? 0.4 : 0.8,
                                             repeat: Infinity,
-                                            delay: i * 0.15,
+                                            delay: i * 0.1,
                                             ease: "easeInOut"
                                         }}
-                                        className="w-[2px] bg-accent-energon shadow-[0_0_5px_rgba(255,0,255,0.5)]"
+                                        className={`w-[2px] ${isPlayingIntro ? 'bg-accent-hazard' : 'bg-accent-energon'} shadow-[0_0_5px_rgba(255,0,255,0.5)]`}
                                     />
                                 ))}
                             </div>
