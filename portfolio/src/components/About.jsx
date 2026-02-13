@@ -4,7 +4,7 @@ import { resumeData } from '../data/resume';
 
 const About = () => {
     return (
-        <section id="about" className="py-32 px-8 md:px-16 lg:px-32 relative flex flex-col md:flex-row items-center gap-16 max-w-7xl mx-auto overflow-hidden">
+        <section id="about" className="py-32 px-6 md:px-16 lg:px-32 relative flex flex-col md:flex-row items-center gap-16 max-w-7xl mx-auto overflow-hidden">
             {/* Decorative HUD Element */}
             <div className="hidden lg:block w-1/3 relative">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-accent-energon animate-pulse shadow-[0_0_10px_rgba(255,0,255,0.5)]" />

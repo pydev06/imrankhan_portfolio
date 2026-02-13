@@ -171,7 +171,7 @@ const Hero = () => {
                     {isSystemGlitching ? <span className="text-accent-hazard">Syncing Tactical Feed</span> : 'System Authorization Required'}
                 </motion.p>
 
-                <h1 className="font-heading text-4xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tighter overflow-hidden leading-[0.85] italic text-text-primary">
+                <h1 className="font-heading text-3xl md:text-7xl lg:text-8xl font-black mb-6 tracking-tighter overflow-hidden leading-[0.85] italic text-text-primary">
                     <ScrambleText key={glitchKey} text={name} />
                 </h1>
 

@@ -4,7 +4,7 @@ import { resumeData } from '../data/resume';
 
 const Projects = () => {
     return (
-        <section id="projects" className="py-32 px-8 md:px-16 lg:px-32 relative max-w-7xl mx-auto overflow-hidden">
+        <section id="projects" className="py-32 px-6 md:px-16 lg:px-32 relative max-w-7xl mx-auto overflow-hidden">
             <ScrollReveal direction="up" width="100%">
                 <div className="flex items-center justify-between mb-24 border-b border-white/5 pb-8 ml-2 md:ml-8">
                     <h2 className="text-xl md:text-2xl font-heading uppercase tracking-[0.3em] text-accent-energon">
@@ -99,7 +99,7 @@ const Projects = () => {
             </div>
 
             {/* Industrial Watermark */}
-            <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[30vw] font-black text-white/[0.02] -rotate-90 pointer-events-none select-none uppercase">
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[20vw] font-black text-white/[0.02] -rotate-90 pointer-events-none select-none uppercase">
                 Combat_Log
             </div>
         </section>

@@ -34,7 +34,7 @@ const Philosophy = () => {
                                 <div className="absolute -top-10 -left-10 w-16 h-16 border-t-2 border-l-2 border-accent-energon opacity-0 group-hover:opacity-100 transition-all duration-700 shadow-[0_0_10px_rgba(255,0,255,0.5)]" />
                                 <div className="absolute -bottom-10 -right-10 w-16 h-16 border-b-2 border-r-2 border-accent-energon opacity-0 group-hover:opacity-100 transition-all duration-700 shadow-[0_0_10px_rgba(255,0,255,0.5)]" />
 
-                                <h3 className={`text-5xl md:text-8xl font-heading font-black italic tracking-tighter uppercase leading-none transition-all duration-700 chromatic-text
+                                <h3 className={`text-3xl md:text-8xl font-heading font-black italic tracking-tighter uppercase leading-none transition-all duration-700 chromatic-text
                   ${i % 2 === 0 ? 'text-text-primary group-hover:text-accent-energon' : 'text-accent-hazard glow-text-hazard group-hover:text-white'}
                 `}>
                                     "{statement}"
