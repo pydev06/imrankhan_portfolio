@@ -98,10 +98,10 @@ const Hero = () => {
                 className="absolute inset-0 z-0 select-none pointer-events-none flex items-center justify-end overflow-hidden"
             >
                 {/* Strengthened gradient for asymmetric layout and legibility */}
-                <div className="absolute inset-0 bg-gradient-to-r from-bg-primary via-bg-primary/95 to-transparent z-10 w-full md:w-3/5" />
-                <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/30 via-transparent to-bg-primary z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-bg-primary via-bg-primary/80 md:via-bg-primary/95 to-transparent z-10 w-full md:w-3/5 opacity-60 md:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-b from-bg-primary/30 via-transparent to-bg-primary z-10 opacity-60 md:opacity-100" />
 
-                <div className="relative h-full w-full md:w-3/4 flex items-center justify-end px-12">
+                <div className="relative h-full w-full md:w-3/4 flex items-center justify-end px-4 md:px-12">
                     {/* HUD SCANNER LOCKED TO IMAGE FRAME */}
                     <div className="relative h-full md:h-[110vh] aspect-[3/4] md:aspect-auto">
                         {/* Targeting HUD Brackets */}
@@ -126,13 +126,13 @@ const Hero = () => {
                                 key={`red-${glitchKey}`}
                                 src={profileImg}
                                 alt=""
-                                className="absolute inset-0 h-full w-auto object-cover grayscale brightness-[0.7] contrast-125 opacity-20 mix-blend-screen animate-rgb-red pointer-events-none"
+                                className="absolute inset-0 h-full w-auto object-cover grayscale brightness-[0.85] md:brightness-[0.7] contrast-125 opacity-25 md:opacity-20 mix-blend-screen animate-rgb-red pointer-events-none"
                             />
                             <img
                                 key={`blue-${glitchKey}`}
                                 src={profileImg}
                                 alt=""
-                                className="absolute inset-0 h-full w-auto object-cover grayscale brightness-[0.7] contrast-125 opacity-20 mix-blend-screen animate-rgb-blue pointer-events-none"
+                                className="absolute inset-0 h-full w-auto object-cover grayscale brightness-[0.85] md:brightness-[0.7] contrast-125 opacity-25 md:opacity-20 mix-blend-screen animate-rgb-blue pointer-events-none"
                             />
 
                             {/* Main Glitching Layer */}
@@ -140,7 +140,7 @@ const Hero = () => {
                                 key={`main-${glitchKey}`}
                                 src={profileImg}
                                 alt="Imran Khan"
-                                className="h-full w-auto object-cover grayscale brightness-[0.7] contrast-125 transition-all duration-700 opacity-60 md:opacity-90 mix-blend-screen animate-image-glitch"
+                                className="h-full w-auto object-cover grayscale brightness-[0.9] md:brightness-[0.7] contrast-125 transition-all duration-700 opacity-95 md:opacity-90 mix-blend-screen animate-image-glitch"
                             />
                         </div>
                     </div>
