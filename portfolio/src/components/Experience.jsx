@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import { resumeData } from '../data/resume';
 
 const Experience = () => {
+    const [enableStickyTap, setEnableStickyTap] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(hover: none) and (pointer: coarse)');
+
+        const update = () => setEnableStickyTap(mq.matches);
+        update();
+
+        if (mq.addEventListener) {
+            mq.addEventListener('change', update);
+            return () => mq.removeEventListener('change', update);
+        }
+
+        mq.addListener(update);
+        return () => mq.removeListener(update);
+    }, []);
+
     return (
         <section id="experience" className="py-32 px-8 md:px-16 lg:px-32 relative max-w-7xl mx-auto border-t border-white/5 bg-bg-metal/30">
             <ScrollReveal direction="up" width="100%">
@@ -18,7 +36,23 @@ const Experience = () => {
             <div className="relative">
                 <div className="space-y-32">
                     {resumeData.experience.map((exp, i) => (
-                        <div key={i} className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 group">
+                        <div
+                            key={i}
+                            className={`relative grid grid-cols-1 lg:grid-cols-12 gap-12 group ${enableStickyTap ? 'cursor-pointer' : ''}`}
+                            onClick={() => {
+                                if (!enableStickyTap) return;
+                                setActiveIndex((prev) => (prev === i ? null : i));
+                            }}
+                            role={enableStickyTap ? 'button' : undefined}
+                            tabIndex={enableStickyTap ? 0 : undefined}
+                            onKeyDown={(e) => {
+                                if (!enableStickyTap) return;
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setActiveIndex((prev) => (prev === i ? null : i));
+                                }
+                            }}
+                        >
                             {/* Year Marker */}
                             <div className="lg:col-span-2 relative hidden lg:block">
                                 <div className="sticky top-48 flex flex-col items-end pr-8">
@@ -46,7 +80,7 @@ const Experience = () => {
                                                                     {exp.duration}
                                                                 </span>
                                                             </div>
-                                                            <h3 className="text-3xl md:text-5xl lg:text-6xl font-heading text-text-primary tracking-tighter group-hover:text-accent-energon transition-colors duration-300 uppercase leading-[0.8] mt-2 italic font-black">
+                                                            <h3 className={`text-3xl md:text-5xl lg:text-6xl font-heading text-text-primary tracking-tighter group-hover:text-accent-energon group-active:text-accent-energon transition-colors duration-300 uppercase leading-[0.8] mt-2 italic font-black ${activeIndex === i ? 'text-accent-energon' : ''}`}>
                                                                 {exp.role}
                                                             </h3>
                                                         </div>
@@ -69,7 +103,7 @@ const Experience = () => {
 
                                                         <div className="mt-10 pt-10 border-t border-white/5 flex flex-wrap gap-3">
                                                             {exp.stack.map((item, k) => (
-                                                                <span key={k} className="text-[10px] font-mono px-3 py-1 border border-white/10 text-text-dim group-hover:text-accent-hazard group-hover:border-accent-hazard/30 transition-colors bg-white/5">
+                                                                <span key={k} className={`text-[10px] font-mono px-3 py-1 border border-white/10 text-text-dim group-hover:text-accent-hazard group-hover:border-accent-hazard/30 group-active:text-accent-hazard group-active:border-accent-hazard/30 transition-colors bg-white/5 ${activeIndex === i ? 'text-accent-hazard border-accent-hazard/30' : ''}`}>
                                                                     {item}
                                                                 </span>
                                                             ))}
@@ -82,7 +116,7 @@ const Experience = () => {
                                                         <ul className="space-y-6">
                                                             {exp.achievements.map((ach, j) => (
                                                                 <li key={j} className="text-sm font-mono text-text-muted flex gap-4 leading-relaxed group/item">
-                                                                    <span className="text-accent-hazard mt-1.5 font-bold group-hover/item:translate-x-1 transition-transform">&gt;_</span>
+                                                                    <span className={`text-accent-hazard mt-1.5 font-bold group-hover/item:translate-x-1 group-active/item:translate-x-1 transition-transform ${activeIndex === i ? 'translate-x-1' : ''}`}>&gt;_</span>
                                                                     {ach}
                                                                 </li>
                                                             ))}
