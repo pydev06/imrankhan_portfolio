@@ -76,6 +76,45 @@ export const resumeData = {
                 "Improved system reliability and processing speed through extensible codebases."
             ],
             stack: ["Python", "REST APIs", "SaaS Architecture", "ETL", "Git"]
+        },
+        {
+            company: "Prowesstics IT Services",
+            role: "Python Developer",
+            duration: "07/2019 – 11/2020",
+            location: "Chennai, India",
+            description: "Built secure, scalable ETL pipelines for financial data systems, enabling clean and reliable data flow across critical business processes.",
+            achievements: [
+                "Developed and managed Apache Airflow workflows for scheduling and orchestrating ETL pipelines.",
+                "Designed end-to-end pipelines for extraction, transformation, cleansing, and enrichment.",
+                "Ensured data accuracy and system stability through validation, logging, and error handling."
+            ],
+            stack: ["Python", "Apache Airflow", "ETL", "Data Cleansing", "Validation", "Git", "Agile"]
+        },
+        {
+            company: "Codoid",
+            role: "Software Developer",
+            duration: "01/2018 – 06/2019",
+            location: "Chennai, India",
+            description: "Optimized physical asset management systems to enhance lifecycle tracking and asset utilization.",
+            achievements: [
+                "Developed scalable backend systems and APIs for real-time asset data tracking.",
+                "Designed and deployed API systems with AWS architecture for real-time data access.",
+                "Configured monitoring scripts for AWS EC2 instances to ensure system uptime."
+            ],
+            stack: ["Python", "Django", "AWS", "MySQL", "API Development", "Git", "Agile"]
+        },
+        {
+            company: "Sutherland Global Services",
+            role: "Workforce Planning Associate",
+            duration: "03/2016 – 01/2018",
+            location: "Chennai, India",
+            description: "Automated scheduling and forecasting processes, leveraging R and Python to deliver data-driven workforce planning solutions.",
+            achievements: [
+                "Automated scheduling and forecasting workflows using R and Python.",
+                "Implemented time series forecasting models including ARIMA, Exponential Smoothing, Neural Networks, and Holt-Winters.",
+                "Built and deployed R Shiny applications to visualize forecasting models and improve accuracy."
+            ],
+            stack: ["R", "Python", "Shiny", "Time Series Forecasting", "Machine Learning"]
         }
     ],
     projects: [
