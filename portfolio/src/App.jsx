@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ParticleField from './components/ParticleField';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,13 +13,30 @@ import TransformersFlyover from './components/TransformersFlyover';
 import AudioPlayer from './components/AudioPlayer';
 
 function App() {
+  const [enableFinePointerEffects, setEnableFinePointerEffects] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    const update = () => setEnableFinePointerEffects(mq.matches);
+    update();
+
+    if (mq.addEventListener) {
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    }
+
+    mq.addListener(update);
+    return () => mq.removeListener(update);
+  }, []);
+
   return (
-    <div className="bg-bg-primary text-text-primary min-h-screen relative cursor-none">
+    <div className={`bg-bg-primary text-text-primary min-h-screen relative ${enableFinePointerEffects ? 'cursor-none' : ''}`}>
       <div className="crt-overlay" />
       <div className="fixed inset-0 bg-grid opacity-[0.03] pointer-events-none" />
       <div className="fixed inset-0 bg-gradient-to-b from-bg-primary via-transparent to-bg-primary pointer-events-none z-10" />
 
-      <CustomCursor />
+      {enableFinePointerEffects && <CustomCursor />}
       <TransformersFlyover />
       <AudioPlayer />
       {/* Ambient background that stays fixed */}

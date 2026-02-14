@@ -197,9 +197,9 @@ const Hero = () => {
                         href="#about"
                         className="group relative px-10 py-4 font-heading text-xs font-bold tracking-[0.3em] uppercase overflow-hidden transition-all duration-300 active:scale-95 bg-accent-energon/5 backdrop-blur-sm"
                     >
-                        <div className="absolute inset-0 bg-accent-energon translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300" />
-                        <div className="absolute inset-0 border border-accent-energon/50 group-hover:border-accent-energon shadow-[inset_0_0_10px_rgba(255,0,255,0.1)]" />
-                        <span className="relative z-10 group-hover:text-bg-primary transition-colors text-accent-energon">Initialize Mission</span>
+                        <div className="absolute inset-0 bg-accent-energon translate-y-[100%] group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300" />
+                        <div className="absolute inset-0 border border-accent-energon/50 group-hover:border-accent-energon group-active:border-accent-energon shadow-[inset_0_0_10px_rgba(255,0,255,0.1)]" />
+                        <span className="relative z-10 group-hover:text-bg-primary group-active:text-bg-primary transition-colors text-accent-energon">Initialize Mission</span>
                     </a>
 
                     <div className="hidden md:flex flex-col gap-1">

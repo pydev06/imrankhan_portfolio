@@ -20,17 +20,17 @@ const Projects = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
                 {resumeData.projects.map((project, i) => (
                     <ScrollReveal key={i} direction="up" width="100%">
-                        <div className="group relative glass-panel p-8 md:p-10 border border-white/5 hover:border-accent-energon/30 transition-all duration-500 overflow-hidden h-full flex flex-col">
+                        <div className="group relative glass-panel p-8 md:p-10 border border-white/5 hover:border-accent-energon/30 active:border-accent-energon/30 transition-all duration-500 overflow-hidden h-full flex flex-col">
                             {/* Project Index HUD */}
-                            <div className="absolute top-4 right-6 font-mono text-[10px] text-accent-energon/40 group-hover:text-accent-energon transition-colors">
+                            <div className="absolute top-4 right-6 font-mono text-[10px] text-accent-energon/40 group-hover:text-accent-energon group-active:text-accent-energon transition-colors">
                                 [OP_0{i + 1}]
                             </div>
 
                             <div className="flex flex-col gap-6 flex-grow">
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3">
-                                        <div className="h-4 w-1 bg-accent-energon group-hover:h-8 transition-all duration-500" />
-                                        <h3 className="text-2xl md:text-3xl font-heading font-black text-text-primary uppercase tracking-tighter group-hover:text-accent-energon transition-colors">
+                                        <div className="h-4 w-1 bg-accent-energon group-hover:h-8 group-active:h-8 transition-all duration-500" />
+                                        <h3 className="text-2xl md:text-3xl font-heading font-black text-text-primary uppercase tracking-tighter group-hover:text-accent-energon group-active:text-accent-energon transition-colors">
                                             {project.name}
                                         </h3>
                                     </div>
@@ -52,7 +52,7 @@ const Projects = () => {
                                         {project.tech.map((tag, k) => (
                                             <span
                                                 key={k}
-                                                className="px-2 py-0.5 bg-white/5 border border-white/10 text-[8px] font-mono text-text-dim uppercase tracking-widest group-hover:border-accent-energon/20 group-hover:text-accent-energon/60 transition-all"
+                                                className="px-2 py-0.5 bg-white/5 border border-white/10 text-[8px] font-mono text-text-dim uppercase tracking-widest group-hover:border-accent-energon/20 group-hover:text-accent-energon/60 group-active:border-accent-energon/20 group-active:text-accent-energon/60 transition-all"
                                             >
                                                 {tag}
                                             </span>
@@ -90,7 +90,7 @@ const Projects = () => {
                             </div>
 
                             {/* Decorative Background HUD */}
-                            <div className="absolute -bottom-6 -right-6 text-6xl font-heading font-black text-white/[0.02] pointer-events-none select-none group-hover:text-accent-energon/[0.03] transition-colors">
+                            <div className="absolute -bottom-6 -right-6 text-6xl font-heading font-black text-white/[0.02] pointer-events-none select-none group-hover:text-accent-energon/[0.03] group-active:text-accent-energon/[0.03] transition-colors">
                                 0{i + 1}
                             </div>
                         </div>

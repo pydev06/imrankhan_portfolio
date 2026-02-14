@@ -18,9 +18,9 @@ const Skills = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
                 {resumeData.skills.map((skillGroup, i) => (
                     <ScrollReveal key={i} delay={i * 0.1} direction="up" width="100%">
-                        <div className="group relative p-10 border border-white/5 bg-bg-panel/20 backdrop-blur-md hover:bg-bg-panel/40 transition-all duration-300 panel-cut shadow-[inset_0_0_20px_rgba(255,0,255,0.02)]">
+                        <div className="group relative p-10 border border-white/5 bg-bg-panel/20 backdrop-blur-md hover:bg-bg-panel/40 active:bg-bg-panel/40 transition-all duration-300 panel-cut shadow-[inset_0_0_20px_rgba(255,0,255,0.02)]">
                             {/* Corner Accents */}
-                            <div className="absolute top-0 right-0 w-16 h-1 hazard-stripes opacity-20 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(204,255,0,0.3)]" />
+                            <div className="absolute top-0 right-0 w-16 h-1 hazard-stripes opacity-20 group-hover:opacity-100 group-active:opacity-100 transition-opacity shadow-[0_0_10px_rgba(204,255,0,0.3)]" />
 
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="w-1.5 h-6 bg-accent-energon shadow-[0_0_8px_rgba(255,0,255,0.6)]" />
@@ -33,9 +33,9 @@ const Skills = () => {
                                 {skillGroup.items.map((skill, j) => (
                                     <div
                                         key={j}
-                                        className="relative text-xs font-mono text-text-muted hover:text-accent-hazard transition-colors cursor-default flex items-center gap-2 group/skill"
+                                        className="relative text-xs font-mono text-text-muted hover:text-accent-hazard active:text-accent-hazard transition-colors cursor-default flex items-center gap-2 group/skill"
                                     >
-                                        <span className="text-[8px] text-accent-energon opacity-0 group-hover/skill:opacity-100 transition-opacity font-bold">&gt;</span>
+                                        <span className="text-[8px] text-accent-energon opacity-0 group-hover/skill:opacity-100 group-active/skill:opacity-100 transition-opacity font-bold">&gt;</span>
                                         {skill}
                                     </div>
                                 ))}

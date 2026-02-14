@@ -31,7 +31,7 @@ const About = () => {
                 <div className="space-y-10 relative">
                     {resumeData.about.map((paragraph, i) => (
                         <ScrollReveal key={i} delay={0.2 + i * 0.1} direction="up" width="100%">
-                            <div className="relative group p-8 bg-bg-panel/20 backdrop-blur-md panel-cut border-l border-accent-energon/20 hover:border-accent-energon/60 transition-all duration-500 shadow-[inset_0_0_20px_rgba(255,0,255,0.02)]">
+                            <div className="relative group p-8 bg-bg-panel/20 backdrop-blur-md panel-cut border-l border-accent-energon/20 hover:border-accent-energon/60 active:border-accent-energon/60 transition-all duration-500 shadow-[inset_0_0_20px_rgba(255,0,255,0.02)]">
                                 <div className="absolute top-4 left-4 font-mono text-[8px] text-accent-energon/40">DATA_BLOCK.0{i + 1}</div>
                                 <p className="text-lg md:text-xl leading-relaxed text-text-primary font-mono tracking-tight">
                                     <span className="text-accent-energon font-bold mr-2">&gt;</span>
@@ -46,17 +46,17 @@ const About = () => {
                     <ScrollReveal delay={0.6}>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 font-mono text-[10px] uppercase tracking-[0.3em]">
                             <div className="p-4 bg-bg-panel/40 backdrop-blur-sm border border-white/5 relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-hazard group-hover:w-full transition-all duration-300 opacity-20" />
+                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-hazard group-hover:w-full group-active:w-full transition-all duration-300 opacity-20" />
                                 <div className="text-accent-hazard mb-2 font-black">Experience</div>
                                 <div className="text-text-primary text-sm font-bold">9+ Orbital Cycles</div>
                             </div>
                             <div className="p-4 bg-bg-panel/40 backdrop-blur-sm border border-white/5 relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-energon group-hover:w-full transition-all duration-300 opacity-20" />
+                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-energon group-hover:w-full group-active:w-full transition-all duration-300 opacity-20" />
                                 <div className="text-accent-energon mb-2 font-black">Location</div>
                                 <div className="text-text-primary text-sm font-bold">Sector_Bangalore</div>
                             </div>
                             <div className="p-4 bg-bg-panel/40 backdrop-blur-sm border border-white/5 relative overflow-hidden group col-span-2 md:col-span-1">
-                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-core group-hover:w-full transition-all duration-300 opacity-20" />
+                                <div className="absolute top-0 left-0 w-1 h-full bg-accent-core group-hover:w-full group-active:w-full transition-all duration-300 opacity-20" />
                                 <div className="text-accent-core mb-2 font-black">Deployment</div>
                                 <div className="text-text-primary text-sm font-bold">Global Ready</div>
                             </div>

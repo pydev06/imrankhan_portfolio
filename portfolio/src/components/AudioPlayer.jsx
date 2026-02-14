@@ -157,20 +157,20 @@ const AudioPlayer = () => {
                     <div className={`w-[2px] h-2 ${!isMuted ? 'bg-accent-energon animate-pulse' : 'bg-white/10'}`} style={{ animationDelay: '0.2s' }} />
                 </div>
 
-                <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
+                <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-active:scale-110">
                     {isMuted ? (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6" />
                         </svg>
                     ) : (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse">
-                            <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.08" />
+                            <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 1 1 0 14.14M15.54 8.46a5 5 0 1 1 0 7.08" />
                         </svg>
                     )}
                 </div>
 
                 {/* Glitch Overlay on Hover */}
-                <div className="absolute inset-0 bg-accent-energon/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-accent-energon/5 translate-y-full group-hover:translate-y-0 group-active:translate-y-0 transition-transform duration-300" />
 
                 {/* Tactical Scanning Line */}
                 {!isMuted && (
