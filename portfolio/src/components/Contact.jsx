@@ -86,13 +86,15 @@ const Contact = () => {
 
             <ScrollReveal delay={0.6} direction="up" width="100%">
                 <div className="space-y-12">
-                    <button
-                        className="group relative px-20 py-6 font-heading text-sm font-black tracking-[0.5em] uppercase transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(204,255,0,0.2)] animate-interaction-pulse animate-scan-sweep"
+                    <a
+                        href="/ImranKhan_Resume.pdf"
+                        download
+                        className="group relative inline-block px-20 py-6 font-heading text-sm font-black tracking-[0.5em] uppercase transition-all duration-500 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(204,255,0,0.2)] animate-interaction-pulse animate-scan-sweep"
                     >
                         <div className="absolute inset-0 bg-accent-hazard" />
                         <div className="absolute inset-0 border-2 border-accent-hazard group-hover:inset-[-8px] group-active:inset-[-8px] transition-all duration-300 opacity-30 shadow-[0_0_30px_rgba(204,255,0,0.4)]" />
                         <span className="relative z-10 text-bg-primary italic">Download_Directive_CV</span>
-                    </button>
+                    </a>
 
                     <div className="pt-24 font-mono text-[9px] uppercase tracking-[0.6em] text-text-dim/60 leading-loose flex flex-col items-center gap-4">
                         <div className="h-[1px] w-48 bg-white/5" />
