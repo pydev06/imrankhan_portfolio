@@ -30,6 +30,30 @@ function App() {
     return () => mq.removeListener(update);
   }, []);
 
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    const key = `visitPing:${today}`;
+
+    try {
+      if (window.localStorage.getItem(key)) return;
+      window.localStorage.setItem(key, '1');
+    } catch {
+      // ignore
+    }
+
+    fetch('/api/visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        page: window.location.pathname,
+        referrer: document.referrer,
+      }),
+      keepalive: true,
+    }).catch(() => {
+      // ignore
+    });
+  }, []);
+
   return (
     <div className={`bg-bg-primary text-text-primary min-h-screen relative ${enableFinePointerEffects ? 'cursor-none' : ''}`}>
       <div className="crt-overlay" />
